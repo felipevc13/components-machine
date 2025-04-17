@@ -183,6 +183,13 @@
             display: inline-block; /* Para ajustar ao conteúdo ou usar 'block' para largura total */
             min-width: 150px; /* Largura mínima opcional */
         }
+        .select-widget-wrapper.fullwidth {
+            width: 100%;
+            display: block;
+        }
+        .select-widget-wrapper.fullwidth select.select-component {
+            width: 100%;
+        }
 
         .select-widget-wrapper select.select-component {
             /* Resetar aparência padrão */

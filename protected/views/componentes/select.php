@@ -29,7 +29,14 @@
                                value="<?php echo CHtml::encode($props['placeholder']); ?>">
                     </div>
                 </div>
-             <?php /* Adicionar outros controles aqui no futuro */ ?>
+                <div class="storybook-control-row">
+                    <div class="storybook-control-name">
+                        <label for="prop-fullwidth">fullwidth</label>
+                    </div>
+                    <div class="storybook-control-input">
+                        <input type="checkbox" id="prop-fullwidth" name="fullwidth" value="1" <?php echo !empty($props['fullwidth']) ? 'checked' : ''; ?>>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -38,19 +45,35 @@
     // Atualização automática do select ao digitar (debounce)
     (function() {
         var input = document.getElementById('prop-placeholder');
-        if (!input) return;
-        var timer;
-        input.addEventListener('input', function() {
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                var url = new URL(window.location.href);
-                url.searchParams.set('placeholder', input.value);
-                // Manter o parâmetro story
-                var story = document.querySelector('input[name="story"]');
-                if (story) url.searchParams.set('story', story.value);
-                window.location.href = url.toString();
-            }, 400); // 400ms debounce
-        });
+var checkbox = document.getElementById('prop-fullwidth');
+if (!input && !checkbox) return;
+var timer;
+if (input) {
+    input.addEventListener('input', function() {
+        clearTimeout(timer);
+        timer = setTimeout(updateUrl, 400);
+    });
+}
+if (checkbox) {
+    checkbox.addEventListener('change', function() {
+        updateUrl();
+    });
+}
+function updateUrl() {
+    var url = new URL(window.location.href);
+    if (input) url.searchParams.set('placeholder', input.value);
+    if (checkbox) {
+        if (checkbox.checked) {
+            url.searchParams.set('fullwidth', '1');
+        } else {
+            url.searchParams.delete('fullwidth');
+        }
+    }
+    // Manter o parâmetro story
+    var story = document.querySelector('input[name="story"]');
+    if (story) url.searchParams.set('story', story.value);
+    window.location.href = url.toString();
+}
     })();
     </script>
 

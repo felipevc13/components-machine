@@ -15,6 +15,7 @@ return [
                 'selected' => '',
                 'disabled' => false,
                 'multiple' => false,
+                'fullwidth' => false,
             ],
         ],
         [
@@ -28,6 +29,7 @@ return [
                 'selected' => 'valor1',
                 'disabled' => true,
                 'multiple' => false,
+                'fullwidth' => false,
             ],
         ],
 
