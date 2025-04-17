@@ -33,8 +33,8 @@
 }
 
 .select-component:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 0 2px #e3f0fd;
+  border-color: #00A9E2; /* Nova cor de foco */
+  box-shadow: 0 0 0 2px #e3f0fd; /* Manter sombra azul claro por enquanto */
 }
 
 .select-component:disabled {
