@@ -1,3 +1,9 @@
+<?php
+/* @var $this ComponentesController */
+$this->pageTitle = 'Componentes - Select';
+?>
+
+
 <div style="display: flex; gap: 32px;">
 <div style="flex: 1;">
     <!-- Canvas Content: Renderizar APENAS a história selecionada -->
@@ -18,8 +24,8 @@
                 <div class="storybook-control-input">Control</div>
             </div>
 
-            <?php // Controle de placeholder apenas para a história Padrão (índice 0) ?>
-            <?php if ($storyIndex === 0 && isset($props['placeholder'])): ?>
+            <?php // Controles comuns que podem ser modificados em qualquer história ?>
+            <?php if (isset($props['placeholder'])): // Mostrar se a prop placeholder existir ?>
                 <div class="storybook-control-row">
                     <div class="storybook-control-name">
                         <label for="prop-placeholder">placeholder</label>
@@ -29,6 +35,9 @@
                                value="<?php echo CHtml::encode($props['placeholder']); ?>">
                     </div>
                 </div>
+            <?php endif; ?>
+
+            <?php if (isset($props['fullwidth'])): // Mostrar se a prop fullwidth existir ?>
                 <div class="storybook-control-row">
                     <div class="storybook-control-name">
                         <label for="prop-fullwidth">fullwidth</label>
@@ -38,45 +47,26 @@
                     </div>
                 </div>
             <?php endif; ?>
+
+            <?php // Controle para errorMessage, visível apenas na história "Com Erro" (onde error=true) ?>
+            <?php if (!empty($props['error']) && isset($props['errorMessage'])): ?>
+                <div class="storybook-control-row">
+                    <div class="storybook-control-name">
+                        <label for="prop-errorMessage">errorMessage</label>
+                    </div>
+                    <div class="storybook-control-input">
+                        <input type="text" id="prop-errorMessage" name="errorMessage"
+                               value="<?php echo CHtml::encode($props['errorMessage']); ?>">
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
+        <div style="padding: 18px 24px;">
+            <button type="submit" style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Aplicar</button>
+        </div>
     </form>
-    <script>
-    // Atualização automática do select ao digitar (debounce)
-    (function() {
-        var input = document.getElementById('prop-placeholder');
-var checkbox = document.getElementById('prop-fullwidth');
-if (!input && !checkbox) return;
-var timer;
-if (input) {
-    input.addEventListener('input', function() {
-        clearTimeout(timer);
-        timer = setTimeout(updateUrl, 400);
-    });
-}
-if (checkbox) {
-    checkbox.addEventListener('change', function() {
-        updateUrl();
-    });
-}
-function updateUrl() {
-    var url = new URL(window.location.href);
-    if (input) url.searchParams.set('placeholder', input.value);
-    if (checkbox) {
-        if (checkbox.checked) {
-            url.searchParams.set('fullwidth', '1');
-        } else {
-            url.searchParams.delete('fullwidth');
-        }
-    }
-    // Manter o parâmetro story
-    var story = document.querySelector('input[name="story"]');
-    if (story) url.searchParams.set('story', story.value);
-    window.location.href = url.toString();
-}
-    })();
-    </script>
-
+    
     <?php $this->endClip(); ?>
 </div>
 </div>

@@ -1,9 +1,13 @@
+<?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Catálogo de Componentes</title>
-    <link rel="stylesheet" href="/componentes-doc/assets/css/select.css">
+    <?php
+    // Registrar CSS principal e o CSS do select usando Yii
+    Yii::app()->clientScript->registerCssFile('/assets/css/select.css');
+    ?>
     <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -175,71 +179,6 @@
             font-size: 16px;
             color: #555555;
             font-weight: 600;
-        }
-
-        /* === Estilos para SelectWidget === */
-        .select-widget-wrapper {
-            position: relative; /* Para posicionar o ícone */
-            display: inline-block; /* Para ajustar ao conteúdo ou usar 'block' para largura total */
-            min-width: 150px; /* Largura mínima opcional */
-        }
-        .select-widget-wrapper.fullwidth {
-            width: 100%;
-            display: block;
-        }
-        .select-widget-wrapper.fullwidth select.select-component {
-            width: 100%;
-        }
-
-        .select-widget-wrapper select.select-component {
-            /* Resetar aparência padrão */
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-
-            /* Estilos do Figma */
-            background-color: #FFFFFF;
-            border: 1px solid #A7ACB5;
-            border-radius: 4px;
-            padding: 8px 32px 8px 8px; /* 8px geral, mais 24px à direita para o ícone */
-            font-family: 'Source Sans Pro', sans-serif; /* Garanta que a fonte esteja carregada */
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 1.5; /* 24px / 16px */
-            color: #323F52;
-            cursor: pointer;
-            width: 100%; /* Ocupa a largura do wrapper */
-            box-sizing: border-box;
-        }
-
-        /* Ícone customizado (Chevron) */
-        .select-widget-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 10px; /* Espaçamento da direita */
-            transform: translateY(-50%);
-            width: 16px; /* Tamanho do ícone */
-            height: 16px; /* Tamanho do ícone */
-            background-image: url('/assets/images/ChevronDown.svg'); /* CAMINHO CORRIGIDO */
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            pointer-events: none; /* Não interfere com cliques no select */
-            z-index: 1; /* Garante que fique sobre o select */
-        }
-
-        /* Estilo para estado Desabilitado */
-        .select-widget-wrapper select.select-component:disabled {
-            background-color: #f0f0f0; /* Cor de fundo desabilitada */
-            color: #a0a0a0; /* Cor do texto desabilitada */
-            border-color: #cccccc; /* Cor da borda desabilitada */
-            cursor: not-allowed;
-        }
-
-        /* Opcional: Esmaecer o ícone quando desabilitado */
-        .select-widget-wrapper select.select-component:disabled + ::after {
-            opacity: 0.5;
         }
 
         /* === Estilos para Controles (Args Table) === */

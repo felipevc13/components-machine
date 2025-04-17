@@ -8,6 +8,9 @@ class SelectWidget extends CWidget
     public $multiple = false;
     public $placeholder = null; // Nova propriedade
     public $fullwidth = false; // Nova propriedade
+    public $error = false; // Add error property
+    public $errorMessage = null; // Add errorMessage property
+    public $icon = null; // Nova propriedade para o ícone
 
     public function run()
     {
@@ -16,9 +19,19 @@ class SelectWidget extends CWidget
         if ($this->multiple) $attrs .= ' multiple';
         $selectedValues = is_array($this->selected) ? $this->selected : [$this->selected];
 
-        $wrapperClass = 'select-widget-wrapper';
-        if (!empty($this->fullwidth)) $wrapperClass .= ' fullwidth';
-        echo '<div class="' . $wrapperClass . '">';
+        $wrapperClass = 'select-widget-wrapper'; // Classe base
+        if ($this->fullwidth) {
+            $wrapperClass .= ' fullwidth';
+        }
+        if ($this->error) { // Add error class if true
+            $wrapperClass .= ' error';
+        }
+        if ($this->icon) { // Add icon class if true
+            $wrapperClass .= ' has-icon';
+        }
+
+        echo CHtml::openTag('div', ['class' => $wrapperClass]);
+
         echo '<select ' . $attrs . '>';
 
         // Adicionar a option de placeholder se definida
@@ -31,11 +44,17 @@ class SelectWidget extends CWidget
         // Renderizar as opções normais
         foreach ($this->options as $value => $label) {
             // Não renderizar a opção se o valor dela for vazio (para evitar duplicar o placeholder se ele vier nas opções)
-            if ($value === '') continue; 
+            if ($value === '') continue;
             $sel = in_array((string)$value, $selectedValues, true) ? ' selected' : '';
             echo '<option value="'.CHtml::encode($value).'"'.$sel.'>'.CHtml::encode($label).'</option>';
         }
         echo '</select>';
-        echo '</div>';
+
+        // Render error message if applicable
+        if ($this->error && !empty($this->errorMessage)) {
+            echo '<div class="select-error-message">' . CHtml::encode($this->errorMessage) . '</div>';
+        }
+
+        echo CHtml::closeTag('div');
     }
 }
