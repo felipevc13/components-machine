@@ -109,7 +109,7 @@
         }
         .storybook-tabs {
             border-bottom: 1px solid #E0E0E0;
-            padding: 0 24px;
+            padding: 8px 24px;
             background-color: #FFFFFF;
         }
         .storybook-tab-button {
@@ -177,9 +177,130 @@
             font-weight: 600;
         }
 
+        /* === Estilos para SelectWidget === */
+        .select-widget-wrapper {
+            position: relative; /* Para posicionar o ícone */
+            display: inline-block; /* Para ajustar ao conteúdo ou usar 'block' para largura total */
+            min-width: 150px; /* Largura mínima opcional */
+        }
+
+        .select-widget-wrapper select.select-component {
+            /* Resetar aparência padrão */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            /* Estilos do Figma */
+            background-color: #FFFFFF;
+            border: 1px solid #A7ACB5;
+            border-radius: 4px;
+            padding: 8px 32px 8px 8px; /* 8px geral, mais 24px à direita para o ícone */
+            font-family: 'Source Sans Pro', sans-serif; /* Garanta que a fonte esteja carregada */
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5; /* 24px / 16px */
+            color: #323F52;
+            cursor: pointer;
+            width: 100%; /* Ocupa a largura do wrapper */
+            box-sizing: border-box;
+        }
+
+        /* Ícone customizado (Chevron) */
+        .select-widget-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Espaçamento da direita */
+            transform: translateY(-50%);
+            width: 16px; /* Tamanho do ícone */
+            height: 16px; /* Tamanho do ícone */
+            background-image: url('/assets/images/ChevronDown.svg'); /* CAMINHO CORRIGIDO */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            pointer-events: none; /* Não interfere com cliques no select */
+            z-index: 1; /* Garante que fique sobre o select */
+        }
+
+        /* Estilo para estado Desabilitado */
+        .select-widget-wrapper select.select-component:disabled {
+            background-color: #f0f0f0; /* Cor de fundo desabilitada */
+            color: #a0a0a0; /* Cor do texto desabilitada */
+            border-color: #cccccc; /* Cor da borda desabilitada */
+            cursor: not-allowed;
+        }
+
+        /* Opcional: Esmaecer o ícone quando desabilitado */
+        .select-widget-wrapper select.select-component:disabled + ::after {
+            opacity: 0.5;
+        }
+
+        /* === Estilos para Controles (Args Table) === */
+        .storybook-controls-table {
+            width: 100%;
+            border-collapse: collapse; /* Comportamento de tabela */
+            font-size: 13px;
+            color: #333;
+        }
+
+        .storybook-control-row {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0; /* Borda separadora cinza */
+            align-items: center; /* Alinha verticalmente nome e input */
+        }
+        .storybook-control-row:last-child {
+            border-bottom: none; /* Remove borda da última linha */
+        }
+
+        .storybook-controls-header {
+            /* background removido */
+            color: #666;
+            font-weight: 700;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .storybook-controls-header .storybook-control-name,
+        .storybook-controls-header .storybook-control-input {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .storybook-control-name,
+        .storybook-control-input {
+            padding: 12px 16px; /* Espaçamento interno */
+            box-sizing: border-box;
+        }
+
+        .storybook-control-name {
+            flex: 0 0 30%; /* Largura fixa para o nome da prop */
+            font-weight: 600;
+        }
+        .storybook-control-name label {
+             display: block; /* Garante que o label ocupe o espaço */
+             margin: 0;
+        }
+
+        .storybook-control-input {
+            flex: 1; /* Ocupa o restante do espaço */
+        }
+
+        /* Estilos para o input dentro da tabela (remover inline styles da view depois) */
+        .storybook-control-input input[type="text"],
+        .storybook-control-input input[type="number"],
+        .storybook-control-input select,
+        .storybook-control-input textarea {
+            width: 100%;
+            padding: 6px 8px; /* Padding menor para input */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        .storybook-control-input input[type="checkbox"] {
+             /* Estilos específicos para checkbox se necessário */
+        }
+
     </style>
 </head>
-
 <body>
     <div class="storybook-header">
         <img src="/assets/images/logo.svg" alt="Logo" style="height: 40px; vertical-align: middle;">

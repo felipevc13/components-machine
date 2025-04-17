@@ -6,12 +6,13 @@ return [
             'title' => 'Padrão',
             'props' => [
                 'name' => 'select_padrao',
+                'placeholder' => 'Selecione',
                 'options' => [
                     'valor1' => 'Opção 1',
                     'valor2' => 'Opção 2',
                     'valor3' => 'Opção 3',
                 ],
-                'selected' => 'valor2',
+                'selected' => '',
                 'disabled' => false,
                 'multiple' => false,
             ],
@@ -29,19 +30,6 @@ return [
                 'multiple' => false,
             ],
         ],
-        [
-            'title' => 'Múltiplo',
-            'props' => [
-                'name' => 'select_multiplo',
-                'options' => [
-                    'valor1' => 'Opção 1',
-                    'valor2' => 'Opção 2',
-                    'valor3' => 'Opção 3',
-                ],
-                'selected' => ['valor1', 'valor3'],
-                'disabled' => false,
-                'multiple' => true,
-            ],
-        ],
+
     ],
 ];

@@ -7,46 +7,53 @@
     </div>
 
     <?php $this->beginClip('controls'); ?>
-    <!-- Controls (Formulário e Lista de Props para a história SELECIONADA [$storyIndex]) -->
-    <form method="get" style="background: #f7f8fa; padding: 18px 24px; border-radius: 6px;">
+    <!-- Controls (Layout tipo Storybook Args) -->
+    <form method="get" style="padding: 0; border-radius: 6px;">
         <input type="hidden" name="story" value="<?php echo $storyIndex; ?>">
-        <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-            <div>
-                <label>name<br>
-                    <input type="text" name="name" value="<?php echo CHtml::encode($props['name']); ?>">
-                </label>
+
+        <div class="storybook-controls-table"> 
+            <!-- Cabeçalho da Tabela -->
+            <div class="storybook-control-row storybook-controls-header"> 
+                <div class="storybook-control-name">Nome</div>
+                <div class="storybook-control-input">Control</div>
             </div>
-            <div>
-                <label>selected<br>
-                    <input type="text" name="selected" value="<?php echo is_array($props['selected']) ? implode(',', $props['selected']) : $props['selected']; ?>">
-                    <small style="color: #888">(para múltiplos, separar por vírgula)</small>
-                </label>
-            </div>
-            <div>
-                <label>disabled<br>
-                    <input type="checkbox" name="disabled" value="1" <?php if (!empty($props['disabled'])) echo 'checked'; ?>>
-                </label>
-            </div>
-            <div>
-                <label>multiple<br>
-                    <input type="checkbox" name="multiple" value="1" <?php if (!empty($props['multiple'])) echo 'checked'; ?>>
-                </label>
-            </div>
+
+            <?php // Controle de placeholder apenas para a história Padrão (índice 0) ?>
+            <?php if ($storyIndex === 0 && isset($props['placeholder'])): ?>
+                <div class="storybook-control-row">
+                    <div class="storybook-control-name">
+                        <label for="prop-placeholder">placeholder</label>
+                    </div>
+                    <div class="storybook-control-input">
+                        <input type="text" id="prop-placeholder" name="placeholder" 
+                               value="<?php echo CHtml::encode($props['placeholder']); ?>">
+                    </div>
+                </div>
+             <?php /* Adicionar outros controles aqui no futuro */ ?>
+            <?php endif; ?>
         </div>
-        <button type="submit" style="margin-top: 16px; background: #ff4785; color: #fff; border: none; padding: 8px 22px; border-radius: 4px; font-size: 1rem; cursor: pointer;">Atualizar</button>
+
     </form>
-    <div style="margin-top: 28px;">
-        <h4 style="color: #888; font-size: 1rem;">Props disponíveis</h4>
-        <ul>
-            <li><strong>name</strong>: Nome do campo select</li>
-            <li><strong>options</strong>: Array associativo de opções (valor =&gt; label)</li>
-            <li><strong>selected</strong>: Valor selecionado (string ou array)</li>
-            <li><strong>disabled</strong>: true/false</li>
-            <li><strong>multiple</strong>: true/false</li>
-        </ul>
-    </div>
+    <script>
+    // Atualização automática do select ao digitar (debounce)
+    (function() {
+        var input = document.getElementById('prop-placeholder');
+        if (!input) return;
+        var timer;
+        input.addEventListener('input', function() {
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                var url = new URL(window.location.href);
+                url.searchParams.set('placeholder', input.value);
+                // Manter o parâmetro story
+                var story = document.querySelector('input[name="story"]');
+                if (story) url.searchParams.set('story', story.value);
+                window.location.href = url.toString();
+            }, 400); // 400ms debounce
+        });
+    })();
+    </script>
+
     <?php $this->endClip(); ?>
-
 </div>
-
 </div>

@@ -10,23 +10,34 @@ class ComponentesController extends CController
     {
         $stories = require(dirname(__FILE__).'/../data/stories.php');
         $selectStories = $stories['Select'];
+
+        // Determinar a história selecionada
         $storyIndex = isset($_GET['story']) ? intval($_GET['story']) : 0;
-        if (!isset($selectStories[$storyIndex])) $storyIndex = 0;
+        // Garantir que o índice é válido
+        if (!isset($selectStories[$storyIndex])) {
+            $storyIndex = 0;
+        }
         $story = $selectStories[$storyIndex];
         $props = $story['props'];
-        // Sobrescrever props se enviados via GET
-        if (isset($_GET['name'])) {
-            $props['name'] = $_GET['name'];
+
+        // Sobrescrever props com parâmetros GET, se existirem
+        foreach ($_GET as $key => $value) {
+            if ($key !== 'story' && isset($props[$key])) {
+                if (is_bool($props[$key])) {
+                    $props[$key] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+                } elseif (is_array($props[$key])) {
+                    // Simplificação: Assume array de strings separados por vírgula para 'selected' múltiplo
+                    $props[$key] = explode(',', $value);
+                } else {
+                    $props[$key] = $value;
+                }
+            }
         }
-        if (isset($_GET['selected'])) {
-            $props['selected'] = strpos($_GET['selected'], ',') !== false ? explode(',', $_GET['selected']) : $_GET['selected'];
-        }
-        $props['disabled'] = !empty($_GET['disabled']);
-        $props['multiple'] = !empty($_GET['multiple']);
-        $this->render('select', array(
+
+        $this->render('select', [
             'props' => $props,
             'stories' => $selectStories,
             'storyIndex' => $storyIndex,
-        ));
+        ]);
     }
 }
