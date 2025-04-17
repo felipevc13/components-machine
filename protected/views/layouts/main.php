@@ -103,13 +103,80 @@
         }
         .storybook-content {
             flex: 1;
-            padding: 40px 48px;
-            max-width: 900px;
-            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .storybook-tabs {
+            border-bottom: 1px solid #E0E0E0;
+            padding: 0 24px;
+            background-color: #FFFFFF;
+        }
+        .storybook-tab-button {
+            padding: 10px 16px;
+            margin-bottom: -1px; /* Para sobrepor a borda inferior do container */
+            border: none;
+            border-bottom: 2px solid transparent;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666666;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .storybook-tab-button:hover {
+            color: #333333;
+        }
+        .storybook-tab-button.active {
+            color: #1EA7FD; /* Azul Storybook */
+            border-bottom-color: #1EA7FD;
+        }
+        .storybook-tab-panel {
+            display: none; /* Oculto por padrão */
+            padding: 32px; /* Espaçamento interno do conteúdo */
+            flex-grow: 1; /* Ocupa o espaço vertical restante */
+            background-color: #F6F6F6; /* Alterado para cinza claro */
+        }
+        .storybook-tab-panel.active {
+            display: block; /* Exibido quando ativo */
+        }
+        .storybook-controls-panel {
+            background-color: #FFFFFF; /* Alterado para branco */
+            border-top: 1px solid #E0E0E0;
+            padding: 24px 32px;
+            min-height: 150px; /* Altura mínima para a área de controles */
+            color: #333333;
+        }
+        .storybook-controls-panel h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #444444;
         }
         .storybook-sidebar .history-item:hover {
             background: #ececec;
         }
+        .storybook-sidebar .history-item.active {
+            background-color: #e0e0e0; /* Fundo cinza para item ativo */
+            font-weight: 600; /* Opcional: deixar o texto em negrito */
+        }
+
+        /* Estilos para as Histórias no Canvas */
+        .storybook-tab-panel .story-wrapper {
+            padding: 24px 0;
+            border-bottom: 1px dashed #e0e0e0; /* Separador sutil */
+        }
+        .storybook-tab-panel .story-wrapper:last-child {
+            border-bottom: none; /* Remover borda do último item */
+        }
+        .storybook-tab-panel .story-wrapper h4 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #555555;
+            font-weight: 600;
+        }
+
     </style>
 </head>
 
@@ -145,7 +212,9 @@
                 echo '<ul style="list-style:none; padding-left:0; margin:0;">';
                 foreach ($componentStories as $idx => $story) {
                     $href = "/componentes/select?story=$idx";
-                    echo '<li class="history-item" data-href="'.$href.'" style="font-size:13px; padding:4px 12px 4px 34px; border-radius:4px; cursor:pointer;">'.htmlspecialchars($story['title']).'</li>';
+                    $isActive = (strpos($currentPath, '/componentes/select') !== false && $currentStory == $idx);
+                    $activeClass = $isActive ? ' active' : ''; // Adiciona espaço antes se ativo
+                    echo '<li class="history-item'.$activeClass.'" data-href="'.$href.'" style="font-size:13px; padding:4px 12px 4px 34px; border-radius:4px; cursor:pointer;">'.htmlspecialchars($story['title']).'</li>';
                 }
                 echo '</ul>';
                 echo '</div>';
@@ -174,11 +243,61 @@
                 });
             });
             </script>
-            </ul>
         </nav>
         <main class="storybook-content">
-            <?php echo $content; ?>
+            <div class="storybook-tabs">
+                <button class="storybook-tab-button active" data-tab="canvas">Canvas</button>
+                <button class="storybook-tab-button" data-tab="docs">Docs</button>
+            </div>
+            <div id="tab-panel-canvas" class="storybook-tab-panel active">
+                <!-- Conteúdo do Canvas (componente renderizado) virá aqui -->
+                <?php echo $content; // Temporariamente colocando o conteúdo antigo aqui ?>
+            </div>
+            <div id="tab-panel-docs" class="storybook-tab-panel">
+                <!-- Conteúdo da documentação virá aqui -->
+                <p>Documentação do componente aparecerá aqui.</p>
+            </div>
+            <div class="storybook-controls-panel">
+                <h3>Controls</h3>
+                <?php if(isset($this->clips['controls'])): ?>
+                    <?php echo $this->clips['controls']; ?>
+                <?php else: ?>
+                    <p>Configurações (props) não disponíveis para esta visualização.</p>
+                <?php endif; ?>
+            </div>
         </main>
     </div>
+
+    <script>
+        // Script existente do accordion da sidebar
+        document.querySelectorAll('.accordion-toggle').forEach(function(btn){
+            // ... (código do accordion) ...
+        });
+        document.querySelectorAll('.history-item').forEach(function(item){
+            // ... (código do history item) ...
+        });
+
+        // Novo script para as abas Canvas/Docs
+        const tabButtons = document.querySelectorAll('.storybook-tab-button');
+        const tabPanels = document.querySelectorAll('.storybook-tab-panel');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove 'active' de todos os botões e painéis
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+
+                // Adiciona 'active' ao botão clicado
+                button.classList.add('active');
+
+                // Adiciona 'active' ao painel correspondente
+                const targetTab = button.getAttribute('data-tab');
+                const targetPanel = document.getElementById(`tab-panel-${targetTab}`);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

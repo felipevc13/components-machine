@@ -1,10 +1,13 @@
 <div style="display: flex; gap: 32px;">
 <div style="flex: 1;">
-    <!-- Preview do componente -->
-    <div style="padding: 24px 0 16px 0; border-bottom: 1px solid #eee; margin-bottom: 24px;">
+    <!-- Canvas Content: Renderizar APENAS a história selecionada -->
+    <div class="story-wrapper">
+        <?php // Renderizar o widget com as props da história selecionada (modificadas pelos controles, se houver) ?>
         <?php $this->widget('SelectWidget', $props); ?>
     </div>
-    <!-- Controls -->
+
+    <?php $this->beginClip('controls'); ?>
+    <!-- Controls (Formulário e Lista de Props para a história SELECIONADA [$storyIndex]) -->
     <form method="get" style="background: #f7f8fa; padding: 18px 24px; border-radius: 6px;">
         <input type="hidden" name="story" value="<?php echo $storyIndex; ?>">
         <div style="display: flex; gap: 24px; flex-wrap: wrap;">
@@ -42,7 +45,8 @@
             <li><strong>multiple</strong>: true/false</li>
         </ul>
     </div>
-</div>
+    <?php $this->endClip(); ?>
 
 </div>
 
+</div>
