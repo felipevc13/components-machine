@@ -11,8 +11,10 @@ return array(
     'components'=>array(
         'urlManager'=>array(
             'urlFormat'=>'path',
+            'showScriptName'=>false, // Add this line to hide index.php
             'rules'=>array(
                 'componentes/<action:\w+>' => 'componentes/<action>',
+                // Add more specific rules if needed above generic ones
             ),
         ),
     ),

@@ -11,6 +11,22 @@
     ?>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet"> <!-- Import Source Sans Pro -->
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/assets/css/storybook.css">
+    <!-- Prism.js para syntax highlight -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- Prism.js syntax highlight (tema escuro) -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+      /* Garante contraste forte para blocos de código */
+      pre[class*="language-"], code[class*="language-"] {
+        background: #2d2d2d !important;
+        color: #f8f8f2 !important;
+        font-size: 1em;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-scss.min.js"></script>
 </head>
 <body>
     <div class="storybook-header">
@@ -29,6 +45,55 @@
 
             // --- Adicionar Design Tokens manualmente --- 
             $designTokens = [
+                'Fontes' => [
+                    '$font-family-primary' => "'Source Sans Pro', sans-serif",
+                ],
+                'Tamanhos de Fonte' => [
+                    '$font-size-heading-xlg' => '40px',
+                    '$font-size-heading-xxl' => '36px',
+                    '$font-size-heading-lg' => '32px',
+                    '$font-size-heading-md' => '28px',
+                    '$font-size-heading-sm' => '24px',
+                    '$font-size-heading-xsm' => '20px',
+                    '$font-size-body-lg' => '18px',
+                    '$font-size-body-md' => '16px',
+                    '$font-size-caption-md' => '14px',
+                    '$font-size-caption-sm' => '12px',
+                ],
+                'Alturas de Linha' => [
+                    '$line-height-heading-xlg' => '48px',
+                    '$line-height-heading-xxl' => '44px',
+                    '$line-height-heading-lg' => '40px',
+                    '$line-height-heading-md' => '36px',
+                    '$line-height-heading-sm' => '32px',
+                    '$line-height-heading-xsm' => '28px',
+                    '$line-height-body-lg' => '28px',
+                    '$line-height-body-md' => '24px',
+                    '$line-height-caption-md' => '20px',
+                    '$line-height-caption-sm' => '18px',
+                ],
+                'Raios de Borda' => [
+                    '$radius-sm' => '4px',
+                    '$radius-md' => '8px',
+                    '$radius-lg' => '16px',
+                    '$radius-xlg' => '30px',
+                    '$radius-full' => '55555px',
+                ],
+                'Estados' => [
+                    '$state-focus' => 'rgba(0, 0, 0, 0.5)',
+                    '$state-pressed' => 'rgba(0, 0, 0, 0.12)',
+                    '$state-hover' => 'rgba(0, 0, 0, 0.04)',
+                    '$state-hover-light' => 'rgba(0, 0, 0, 0.02)',
+                    '$state-disabled-bg' => '#E6E6E6',
+                    '$state-disabled-fg' => '#7E8692',
+                    '$state-hover-dark' => 'rgba(255, 255, 255, 0.16)',
+                    '$state-pressed-dark' => 'rgba(255, 255, 255, 0.08)',
+                    '$state-focus-dark' => 'rgba(255, 255, 255, 0.5)',
+                    '$state-shadow' => 'rgba(0, 0, 0, 0.16)',
+                    '$state-hover-strong' => 'rgba(0, 0, 0, 0.08)',
+                    '$state-hover-menu-dark' => 'rgba(255, 255, 255, 0.7)',
+                    '$state-active' => '#0075FF',
+                ],
                 'Cores Primárias' => [
                     '$primary-1' => '#E6F6FC', '$primary-2' => '#B3E1F7', '$primary-3' => '#80CCF2',
                     '$primary-4' => '#4DB8ED', '$primary-5' => '#1AA3E8', '$primary-6' => '#1A79E0',
@@ -103,11 +168,12 @@
             </div>
 
             <!-- === Início da Seção Design Tokens (com Accordion) === -->
+            <?php /* Temporarily commented out Design Tokens section
             <h2 style="margin-top: 20px; font-size: 16px; padding-left: 10px;">Design Tokens</h2>
             <div class="storybook-sidebar-accordion design-tokens-accordion" style="padding-left: 10px;">
-                <?php 
+                <?php
                 $tokenAccordionIdx = 0; // Counter for unique IDs
-                foreach ($designTokens as $category => $tokens): 
+                foreach ($designTokens as $category => $tokens):
                     $tokenAccordionId = 'tokens-accordion-'.$tokenAccordionIdx;
                 ?>
                     <div class="accordion-group">
@@ -129,12 +195,13 @@
                             </ul>
                         </div>
                     </div>
-                <?php 
+                <?php
                     $tokenAccordionIdx++; // Increment counter
-                endforeach; 
+                endforeach;
                 ?>
             </div>
             <!-- === Fim da Seção Design Tokens === -->
+            */ ?>
 
             <script>
             document.querySelectorAll('.accordion-toggle').forEach(function(btn){
@@ -162,10 +229,26 @@
                 <button class="storybook-tab-button active" data-tab="canvas">Canvas</button>
                 <button class="storybook-tab-button" data-tab="code">Code</button>
             </div>
+    
+            <!-- New controls for Canvas size -->
+            <div class="canvas-size-controls" style="padding: 10px; background: #ffffff; display: flex; align-items: center; gap: 10px; align-self: center;">
+                <label for="canvas-width-select">Width:</label>
+                <select id="canvas-width-select" style="padding: 4px;">
+                    <option value="">Responsive</option> <!-- Option to clear specific width -->
+                    <option value="768px">Tablet (768px)</option> <!-- Intermediate value -->
+                    <option value="320px">Mobile (320px)</option>
+                </select>
+                <button id="apply-canvas-size" style="padding: 4px 10px;">Apply</button>
+                <!-- Keeping Reset button for consistency, though "Responsive" option also resets -->
+                <button id="reset-canvas-size" style="padding: 4px 10px;">Reset</button>
+            </div>
             <div id="tab-panel-canvas" class="storybook-tab-panel active">
                 <!-- Conteúdo do Canvas (componente renderizado) virá aqui -->
-                <div class="canvas-content-area">
-                  <?php echo $content; // Temporariamente colocando o conteúdo antigo aqui ?>
+                <!-- Conteúdo do Canvas (componente renderizado) virá aqui -->
+                <div class="canvas-container" style="background: #f0f0f0; padding: 20px; display: flex; justify-content: center; flex-grow: 1;">
+                    <div class="canvas-content-area">
+                      <?php echo $content; // Temporariamente colocando o conteúdo antigo aqui ?>
+                    </div>
                 </div>
                 <div class="storybook-controls-panel">
                   <h3>Controls</h3>
@@ -181,21 +264,32 @@
                 <?php if (isset($this->storyCodeSnippet)): // Verifica se a propriedade do controller foi definida ?>
                     <p><strong>Exemplo de Uso (PHP/Yii):</strong></p>
                     <pre><code class="language-php"><?php echo CHtml::encode($this->storyCodeSnippet); // Usa a propriedade do controller ?></code></pre>
-                    
-                    <p style="margin-top: 20px;"><strong>Estilização (CSS):</strong></p>
-                    <p>Para que o componente seja exibido corretamente, certifique-se de que o arquivo CSS compilado esteja incluído na sua página. Neste catálogo, isso é feito incluindo <code>/assets/css/main.css</code> no <code>&lt;head&gt;</code>.</p>
-                    <pre><code class="language-html"><?php 
-                        // Exemplo de como incluir no <head>
-                        $cssIncludeExample = '<link rel="stylesheet" type="text/css" href="' . Yii::app()->baseUrl . '/assets/css/main.css">';
-                        echo CHtml::encode($cssIncludeExample);
-                    ?></code></pre>
 
-                    <?php /* Para syntax highlighting, você precisaria de uma biblioteca JS como Prism.js ou Highlight.js
-                             e garantir que a classe 'language-php' e 'language-html' seja reconhecida por ela.
-                             Exemplo básico com Prism.js (requer inclusão dos assets JS/CSS do Prism):
-                             <link href="path/to/prism.css" rel="stylesheet" />
+                    <!-- === INÍCIO DO GUIA PASSO A PASSO === -->
+                    <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Como Utilizar o Componente em seu Projeto Yii 1.13</h4>
+
+                    <ol style="padding-left: 20px; line-height: 1.6;">
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Pré-requisitos:</strong>
+                            <ul style="margin-top: 0.5rem; padding-left: 20px;">
+                                <li>Certifique-se de que seu projeto está configurado corretamente com o framework Yii 1.13.</li>
+                                <li>Verifique se o arquivo da classe do componente (ex: <code>Select.php</code>) está localizado em um diretório acessível pela sua aplicação Yii, como <code>protected/components/</code>. O nome exato do arquivo e diretório pode variar.</li>
+                            </ul>
+                        </li>
+
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Uso na View (.php):</strong>
+                            <p style="margin-top: 0.5rem;">Para renderizar o componente em sua view (arquivo <code>.php</code>), utilize o método <code>widget()</code> disponível no contexto do controller ou da view. Você precisará fornecer o <em>alias</em> do caminho para a classe do componente e um array com as propriedades (<code>props</code>) desejadas.</p>
+                        </li>
+
+                        <!-- Removed redundant hardcoded example block -->
+                    </ol>
+                    <!-- === FIM DO GUIA PASSO A PASSO === -->
+
+                    <p style="margin-top: 20px;"><strong>Estilização e Customização (CSS):</strong></p>
+                    <p>Para que o componente seja exibido corretamente, certifique-se de que o arquivo CSS compilado esteja incluído na sua página. Neste catálogo, isso é feito incluindo <code>/assets/css/main.css</code> no <code>&lt;head&gt;</code>:</p>
+                    <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="/assets/css/main.css"&gt;</code></pre>
                              <script src="path/to/prism.js"></script>
-                    */ ?>
                 <?php else: ?>
                     <p>Nenhum código de exemplo disponível para esta visualização.</p>
                 <?php endif; ?>
@@ -204,35 +298,108 @@
     </div>
 
     <script>
-        // Script existente do accordion da sidebar
-        document.querySelectorAll('.accordion-toggle').forEach(function(btn){
-            // ... (código do accordion) ...
-        });
-        document.querySelectorAll('.history-item').forEach(function(item){
-            // ... (código do history item) ...
-        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // --- Tab Switching Logic ---
+            const tabButtons = document.querySelectorAll('.storybook-tab-button');
+            const tabPanels = document.querySelectorAll('.storybook-tab-panel');
+            const canvasSizeControls = document.querySelector('.canvas-size-controls'); // Moved declaration here
 
-        // Novo script para as abas Canvas/Docs
-        const tabButtons = document.querySelectorAll('.storybook-tab-button');
-        const tabPanels = document.querySelectorAll('.storybook-tab-panel');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    const targetPanel = document.getElementById(`tab-panel-${targetTab}`);
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove 'active' de todos os botões e painéis
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabPanels.forEach(panel => panel.classList.remove('active'));
+                    // Remove 'active' from all buttons and panels
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
 
-                // Adiciona 'active' ao botão clicado
-                button.classList.add('active');
+                    // Add 'active' to the clicked button and corresponding panel
+                    button.classList.add('active');
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                    }
 
-                // Adiciona 'active' ao painel correspondente
-                const targetTab = button.getAttribute('data-tab');
-                const targetPanel = document.getElementById(`tab-panel-${targetTab}`);
-                if (targetPanel) {
-                    targetPanel.classList.add('active');
-                }
+                    // Show/hide canvas controls based on the active tab
+                    if (canvasSizeControls) {
+                        if (targetTab === 'canvas') {
+                            canvasSizeControls.style.display = 'flex';
+                            // Re-trigger load from storage when switching TO canvas tab
+                            loadCanvasSizeFromStorage();
+                        } else {
+                            canvasSizeControls.style.display = 'none';
+                        }
+                    }
+
+                    // Force Prism re-highlight if the code tab is activated
+                    if (targetTab === 'code') {
+                        setTimeout(() => { Prism.highlightAll(); }, 0);
+                    }
+                });
             });
-        });
+
+            // --- Canvas Size Control Logic ---
+            const localStorageKey = 'canvasWidth';
+            const canvasWidthSelect = document.getElementById('canvas-width-select');
+            const applySizeButton = document.getElementById('apply-canvas-size');
+            const resetSizeButton = document.getElementById('reset-canvas-size');
+            const canvasContentArea = document.querySelector('#tab-panel-canvas .canvas-content-area');
+            const canvasTabPanel = document.getElementById('tab-panel-canvas'); // Keep reference
+
+            const applyCanvasSizeFromSelect = () => {
+                // Ensure elements exist before proceeding
+                if (!canvasWidthSelect || !canvasContentArea) return;
+
+                const width = canvasWidthSelect.value;
+                if (width) {
+                    canvasContentArea.style.width = width;
+                    canvasContentArea.style.flex = '0 0 auto';
+                } else {
+                    canvasContentArea.style.width = '';
+                    canvasContentArea.style.flex = '1';
+                }
+                localStorage.setItem(localStorageKey, width);
+            };
+
+            const loadCanvasSizeFromStorage = () => {
+                // Ensure elements exist before proceeding
+                if (!canvasWidthSelect || !canvasContentArea) return;
+
+                const savedWidth = localStorage.getItem(localStorageKey);
+                if (savedWidth !== null) {
+                    canvasWidthSelect.value = savedWidth;
+                } else {
+                    canvasWidthSelect.value = ''; // Default to Responsive if nothing saved
+                }
+                // Apply the loaded (or default) size
+                applyCanvasSizeFromSelect();
+            };
+
+            // Attach event listeners only if elements exist
+            if (canvasWidthSelect && applySizeButton && resetSizeButton && canvasContentArea && canvasTabPanel) {
+                applySizeButton.addEventListener('click', applyCanvasSizeFromSelect);
+
+                resetSizeButton.addEventListener('click', () => {
+                    if (!canvasContentArea || !canvasWidthSelect) return; // Guard clause
+                    canvasContentArea.style.width = '';
+                    canvasContentArea.style.flex = '1';
+                    canvasWidthSelect.value = '';
+                    localStorage.removeItem(localStorageKey);
+                });
+
+                // Initial setup on page load
+                // Check if canvas tab is initially active
+                if (canvasTabPanel && canvasTabPanel.classList.contains('active')) {
+                    if (canvasSizeControls) canvasSizeControls.style.display = 'flex';
+                    loadCanvasSizeFromStorage(); // Load saved size on initial load
+                } else {
+                     if (canvasSizeControls) canvasSizeControls.style.display = 'none'; // Hide if not active initially
+                }
+            } else {
+                console.error("Canvas control elements not found. Resizing will not work.");
+            }
+        }); // End of DOMContentLoaded listener
     </script>
+    <!-- Prism.js scripts are already included in the <head> -->
 </body>
 </html>
+

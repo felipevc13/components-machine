@@ -77,7 +77,7 @@ select.select-component:disabled {
   border-color: #CED1D5;
   color: #7E8692;
   cursor: not-allowed;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ced4da' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23808894' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
 select.select-component:disabled + ::after {
   opacity: 0.5;
@@ -92,14 +92,6 @@ select.select-component:disabled + ::after {
   word-break: break-word;
   white-space: normal;
   max-width: 100%;
-}
-
-.storybook-tab-panel {
-  display: none;
-}
-
-.storybook-tab-panel.active {
-  display: block;
 }
 
 body {
@@ -127,7 +119,7 @@ body {
 
 .storybook-sidebar {
   width: 210px;
-  background: #F6F9FC;
+  background: #f6f9fc;
   color: #23272f;
   padding: 0;
   /* border-right: none; */
@@ -169,7 +161,7 @@ body {
 .storybook-sidebar .accordion-toggle .arrow {
   margin-right: 8px;
   font-size: 0.65em;
-  color: #ACAEB1;
+  color: #acaeb1;
   transition: transform 0.2s;
 }
 
@@ -221,9 +213,9 @@ body {
 }
 
 .storybook-tabs {
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid #e0e0e0;
   padding: 8px 24px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .storybook-tab-button {
@@ -244,22 +236,41 @@ body {
 }
 
 .storybook-tab-button.active {
-  color: #1EA7FD; /* Azul Storybook */
-  border-bottom-color: #1EA7FD;
+  color: #1ea7fd; /* Azul Storybook */
+  border-bottom-color: #1ea7fd;
 }
 
 .storybook-tab-panel {
-  /* Mantendo os estilos originais de _storybook-layout.scss importados acima */
-  /* Os estilos abaixo complementam ou sobrescrevem se necessário */
-  padding: 32px; /* Espaçamento interno do conteúdo */
-  flex-grow: 1; /* Ocupa o espaço vertical restante */
-  background-color: #F6F6F6; /* Alterado para cinza claro */
+  display: none;
+  background-color: #f6f6f6;
 }
 
-/* .storybook-tab-panel.active já vem de _storybook-layout.scss */
+.storybook-tab-panel.active {
+  display: block;
+}
+
+#tab-panel-canvas.active {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#tab-panel-canvas .canvas-content-area {
+  flex: 0 0 auto;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+#tab-panel-canvas .storybook-controls-panel {
+  flex-shrink: 0;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
 .storybook-controls-panel {
-  background-color: #FFFFFF; /* Alterado para branco */
-  border-top: 1px solid #E0E0E0;
+  background-color: #ffffff; /* Alterado para branco */
+  border-top: 1px solid #e0e0e0;
   padding: 24px 32px;
   min-height: 150px; /* Altura mínima para a área de controles */
   color: #333333;
@@ -281,7 +292,6 @@ body {
   font-weight: 600; /* Opcional: deixar o texto em negrito */
 }
 
-/* Estilos para as Histórias no Canvas */
 .storybook-tab-panel .story-wrapper {
   padding: 24px 0;
   border-bottom: 1px dashed #e0e0e0; /* Separador sutil */
@@ -299,7 +309,6 @@ body {
   font-weight: 600;
 }
 
-/* === Estilos para Controles (Args Table) === */
 .storybook-controls-table {
   width: 100%;
   /* border-collapse: collapse; /* Remover, não é uma tabela real */
@@ -324,7 +333,6 @@ body {
   display: flex; /* Garantir que é flex */
 }
 
-/* Aplicar padding e flex diretamente às divs de nome e input */
 .storybook-control-row .storybook-control-name,
 .storybook-control-row .storybook-control-input {
   padding: 10px 12px; /* Espaçamento interno das células */
@@ -332,7 +340,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Definir largura das colunas */
 .storybook-control-row .storybook-control-name {
   flex: 1.5; /* Nome mais largo */
   font-weight: 600; /* Adicionar negrito ao nome do controle na linha */
@@ -342,14 +349,12 @@ body {
   flex: 2; /* Input mais largo */
 }
 
-/* Estilos específicos para o header */
 .storybook-controls-header .storybook-control-name,
 .storybook-controls-header .storybook-control-input {
   padding: 8px 12px; /* Padding ligeiramente menor para header */
   font-weight: 700; /* Garantir negrito no header */
 }
 
-/* Remover regras antigas para th/td e .storybook-control-cell */
 .storybook-control-input input[type=text],
 .storybook-control-input input[type=number],
 .storybook-control-input input[type=color],
@@ -375,11 +380,40 @@ body {
   font-size: 12px;
 }
 
-/* Ajuste específico para boolean (checkbox) */
 .storybook-control-input input[type=checkbox] + label {
   display: inline-block;
   vertical-align: middle;
   margin-left: 4px;
+}
+
+#tab-panel-code.storybook-tab-panel.active {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; Removed to allow panel to grow with content */
+  /* min-height: 0; Removed */
+  padding: 20px; /* Added padding to the panel */
+  box-sizing: border-box; /* Ensure padding is included in height calculation */
+}
+
+#tab-panel-code.storybook-tab-panel > pre {
+  /* flex: 1; Removed to allow natural height */
+  /* min-height: 0; Removed */
+  margin: 0; /* Keep margin 0 */
+  /* overflow-y: auto; Removed to disable scrollbar */
+  background: #23272f;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0; /* Removed padding from pre as it's now on the panel */
+  font-size: 14px;
+}
+
+#tab-panel-code.storybook-tab-panel > pre > code {
+  background: none;
+  color: inherit;
+  padding: 16px; /* Added padding inside the code block */
+  display: block; /* Ensure padding applies correctly */
+  font-size: inherit;
+  border-radius: 0;
 }
 
 #tab-panel-canvas {

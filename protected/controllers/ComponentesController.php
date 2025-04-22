@@ -5,7 +5,11 @@ class ComponentesController extends CController
 
     public function actionIndex()
     {
-        $this->render('index');
+        // Redirect to the first story of the first component (currently hardcoded to Select, story 0)
+        // TODO: Make this dynamic if more component types are added.
+        $defaultComponentAction = 'select'; // Assuming 'select' is the action for the first component
+        $defaultStoryIndex = 0;
+        $this->redirect($this->createUrl($defaultComponentAction, ['story' => $defaultStoryIndex]));
     }
 
     public function actionSelect()
