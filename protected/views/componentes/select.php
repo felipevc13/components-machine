@@ -12,7 +12,10 @@ $this->pageTitle = 'Componentes - Select';
         <?php $this->widget('SelectWidget', $props); ?>
     </div>
 
-    <?php $this->beginClip('controls'); ?>
+    <?php
+    $tab = isset($_GET['tab']) ? $_GET['tab'] : 'canvas';
+    if ($tab === 'canvas'):
+    $this->beginClip('controls'); ?>
     <!-- Controls (Layout tipo Storybook Args) -->
     <form method="get" style="padding: 0; border-radius: 6px;">
         <input type="hidden" name="story" value="<?php echo $storyIndex; ?>">
@@ -68,5 +71,6 @@ $this->pageTitle = 'Componentes - Select';
     </form>
     
     <?php $this->endClip(); ?>
+    <?php endif; ?>
 </div>
 </div>

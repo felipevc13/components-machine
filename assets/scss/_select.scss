@@ -1,0 +1,122 @@
+@import 'variables';
+
+/* === Estilos para SelectWidget === */
+
+/* Wrapper geral do widget */
+.select-widget-wrapper {
+  margin: 18px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 240px; /* largura fixa default */
+  max-width: 100%; 
+
+  /* Modificador para largura total */
+  &.fullwidth {
+    width: 100%;
+    min-width: 0;
+    select.select-component {
+      width: 100%;
+    }
+  }
+
+  /* Ícone dentro do Select */
+  &.has-icon select.select-component {
+    // Caminho absoluto para o ícone de evento
+    background-image: url("/assets/images/event.svg"), 
+                      // Chevron (seta para baixo)
+                      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat, no-repeat;
+    background-position: left 12px center, right 0.75rem center;
+    background-size: 20px 20px, 16px 12px; 
+    padding-left: 44px; // Espaço para o ícone esquerdo (20px icon + 24px padding)
+  }
+
+  /* Estilo para estado de Erro */
+  &.error {
+    select.select-component {
+      border-color: $destructive-6; 
+    }
+    .select-error-message {
+      display: block; // Garante que a mensagem seja exibida
+    }
+  }
+}
+
+/* Estilos base do elemento <select> */
+select.select-component {
+  // Resetar aparência padrão
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  // Dimensões e Box Model
+  height: 40px;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem; // (top/bottom 6px, right 36px, left 12px)
+  width: 100%; // Ocupa a largura do wrapper
+  box-sizing: border-box;
+  min-width: 180px; // Largura mínima preservada do estilo original
+
+  // Bordas e Fundo
+  border-radius: $radius-sm; // (4px)
+  border: 1px solid $neutral-3; // (#a7acb5)
+  background-color: $white;
+
+  // Tipografia
+  color: $neutral-6; // (#323f52)
+  font-family: $font-family-primary;
+  font-size: $font-size-body-md; // (16px)
+  font-weight: 400;
+  line-height: $line-height-body-md; // (1.5)
+  vertical-align: middle;
+
+  // Ícone Chevron (seta para baixo)
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center; // (12px da direita)
+  background-size: 16px 12px;
+
+  // Comportamento e Transições
+  cursor: pointer;
+  transition: border-color 0.2s;
+  outline: none;
+
+  /* Estado de Foco */
+  &:focus {
+    border-color: $primary-6; // (#00A9E2)
+    outline: none; 
+  }
+
+  /* Remove borda dupla de foco no Firefox */
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $neutral-6; // (#323f52)
+  }
+
+  /* Estado Desabilitado */
+  &:disabled {
+    background-color: $state-disabled-bg; // (#f8f9fa)
+    border-color: $neutral-2; // (#ced4da)
+    color: $neutral-4; // (#6c757d)
+    cursor: not-allowed;
+    // Chevron cinza para estado desabilitado
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ced4da' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+    // Estilo para o pseudo-elemento ::after (se existir/usado)
+    & + ::after {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* Estilo para Mensagem de Erro */
+.select-error-message {
+  display: none; // Oculta por padrão
+  color: $destructive-6; // (#c91111)
+  font-size: 0.875em; // (14px)
+  margin-top: 4px; 
+  word-break: break-word;
+  white-space: normal;
+  max-width: 100%;
+}

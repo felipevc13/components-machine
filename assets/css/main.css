@@ -1,4 +1,99 @@
 @charset "UTF-8";
+/* === Estilos para SelectWidget === */
+/* Wrapper geral do widget */
+.select-widget-wrapper {
+  margin: 18px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 240px; /* largura fixa default */
+  max-width: 100%;
+  /* Modificador para largura total */
+  /* Ícone dentro do Select */
+  /* Estilo para estado de Erro */
+}
+.select-widget-wrapper.fullwidth {
+  width: 100%;
+  min-width: 0;
+}
+.select-widget-wrapper.fullwidth select.select-component {
+  width: 100%;
+}
+.select-widget-wrapper.has-icon select.select-component {
+  background-image: url("/assets/images/event.svg"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat, no-repeat;
+  background-position: left 12px center, right 0.75rem center;
+  background-size: 20px 20px, 16px 12px;
+  padding-left: 44px;
+}
+.select-widget-wrapper.error select.select-component {
+  border-color: #C91111;
+}
+.select-widget-wrapper.error .select-error-message {
+  display: block;
+}
+
+/* Estilos base do elemento <select> */
+select.select-component {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 40px;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 180px;
+  border-radius: 4px;
+  border: 1px solid #A7ACB5;
+  background-color: #FFFFFF;
+  color: #323F52;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  vertical-align: middle;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  outline: none;
+  /* Estado de Foco */
+  /* Remove borda dupla de foco no Firefox */
+  /* Estado Desabilitado */
+}
+select.select-component:focus {
+  border-color: #00A9E2;
+  outline: none;
+}
+select.select-component:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #323F52;
+}
+select.select-component:disabled {
+  background-color: #E6E6E6;
+  border-color: #CED1D5;
+  color: #7E8692;
+  cursor: not-allowed;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ced4da' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+select.select-component:disabled + ::after {
+  opacity: 0.5;
+}
+
+/* Estilo para Mensagem de Erro */
+.select-error-message {
+  display: none;
+  color: #C91111;
+  font-size: 0.875em;
+  margin-top: 4px;
+  word-break: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+
 .storybook-tab-panel {
   display: none;
 }
@@ -287,4 +382,8 @@ body {
   margin-left: 4px;
 }
 
-/*# sourceMappingURL=storybook.css.map */
+#tab-panel-canvas {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/*# sourceMappingURL=main.css.map */

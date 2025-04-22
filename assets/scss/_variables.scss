@@ -1,0 +1,128 @@
+// Primary Colors
+$primary-1: #E6F6FC;
+$primary-2: #C2EAF8;
+$primary-3: #91DAF3;
+$primary-4: #5EC9ED;
+$primary-5: #2EB8E7;
+$primary-6: #00A9E2;
+$primary-7: #0090C0;
+$primary-8: #0078A0;
+$primary-9: #006081;
+$primary-10: #004C66;
+
+// Neutral Colors
+$neutral-1: #EBECEE;
+$neutral-2: #CED1D5;
+$neutral-3: #A7ACB5;
+$neutral-4: #7E8692;
+$neutral-5: #576271;
+$neutral-6: #323F52;
+$neutral-7: #2B3646;
+$neutral-8: #242D3A;
+$neutral-9: #1D242F;
+$neutral-10: #161C25;
+
+// Success Colors
+$success-1: #E8F3ED;
+$success-2: #C7E3DE;
+$success-3: #9ACDB0;
+$success-4: #6BB58B;
+$success-5: #3E9F68;
+$success-6: #148A47;
+$success-7: #11753C;
+$success-8: #0E6232;
+$success-9: #0B4F28;
+$success-10: #093E20;
+
+// Warning Colors
+$warning-1: #FFF7E6;
+$warning-2: #FFECC2;
+$warning-3: #FFDD91;
+$warning-4: #FFCE5E;
+$warning-5: #FFBF2E;
+$warning-6: #FFB100;
+$warning-7: #D99600;
+$warning-8: #B57E00;
+$warning-9: #916500;
+$warning-10: #735000;
+
+// Orange Colors
+$orange-1: #FFF3EA;
+$orange-2: #FFE1CD;
+$orange-3: #FFC9A5;
+$orange-4: #FFB07B;
+$orange-5: #FF9954;
+$orange-6: #FF822E;
+$orange-7: #D96F27;
+$orange-8: #B55C21;
+$orange-9: #914A1A;
+$orange-10: #733A15;
+
+// Destructive Colors
+$destructive-1: #FAE7E7;
+$destructive-2: #F2C6C6;
+$destructive-3: #E89999;
+$destructive-4: #DD6969;
+$destructive-5: #D33C3C;
+$destructive-6: #C91111;
+$destructive-7: #AB0E0E;
+$destructive-8: #8F0C0C;
+$destructive-9: #730A0A;
+$destructive-10: #5A0808;
+
+// Basic Colors
+$white: #FFFFFF;
+$black: #000000;
+$gray-light: #F7F7F7;
+
+// UI States
+$state-focus: rgba(0, 0, 0, 0.5);
+$state-pressed: rgba(0, 0, 0, 0.12);
+$state-hover: rgba(0, 0, 0, 0.04);
+$state-hover-light: rgba(0, 0, 0, 0.02);
+
+$state-disabled-bg: #E6E6E6;
+$state-disabled-fg: #7E8692;
+
+$state-hover-dark: rgba(255, 255, 255, 0.16);
+$state-pressed-dark: rgba(255, 255, 255, 0.08);
+$state-focus-dark: rgba(255, 255, 255, 0.5);
+
+$state-shadow: rgba(0, 0, 0, 0.16);
+$state-hover-strong: rgba(0, 0, 0, 0.08);
+$state-hover-menu-dark: rgba(255, 255, 255, 0.7);
+
+$state-active: #0075FF;
+
+// Font Sizes
+$font-size-heading-xlg: 40px;
+$font-size-heading-xxl: 36px;
+$font-size-heading-lg: 32px;
+$font-size-heading-md: 28px;
+$font-size-heading-sm: 24px;
+$font-size-heading-xsm: 20px;
+$font-size-body-lg: 18px;
+$font-size-body-md: 16px;
+$font-size-caption-md: 14px;
+$font-size-caption-sm: 12px;
+
+// Line Heights
+$line-height-heading-xlg: 48px;
+$line-height-heading-xxl: 44px;
+$line-height-heading-lg: 40px;
+$line-height-heading-md: 36px;
+$line-height-heading-sm: 32px;
+$line-height-heading-xsm: 28px;
+$line-height-body-lg: 28px;
+$line-height-body-md: 24px;
+$line-height-caption-md: 20px;
+$line-height-caption-sm: 18px;
+
+// Border Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-xlg: 30px;
+$radius-full: 55555px;
+
+$font-family-primary: 'Source Sans Pro', sans-serif;

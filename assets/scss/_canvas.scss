@@ -1,0 +1,31 @@
+// Base styles for tab panels
+// .storybook-tab-panel {
+//   display: none; // Hide inactive panels by default
+// }
+
+// .storybook-tab-panel.active {
+//   display: block; // Show active panel
+// }
+
+#tab-panel-canvas.active {
+  display: flex; // Override for canvas panel to use flexbox
+  flex-direction: column;
+  height: 100%; // Ocupar altura disponível do container pai
+}
+
+#tab-panel-canvas {
+  .canvas-content-area {
+    flex: 1; // Ocupa o espaço vertical restante
+    padding: 20px; // Espaçamento interno para o componente
+    overflow-y: auto; // Barra de rolagem se o conteúdo for maior
+    border-bottom: 1px solid #ccc; // Linha separadora
+  }
+
+  .storybook-controls-panel {
+    flex-shrink: 0; // Impede que o painel encolha
+    padding: 20px; // Espaçamento interno
+    background-color: #f8f8f8; // Fundo levemente diferente
+    overflow-y: auto; // Barra de rolagem se os controls forem muitos
+    // max-height: 40%; // Opcional: Limitar altura máxima dos controls
+  }
+}

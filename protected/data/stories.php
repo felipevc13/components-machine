@@ -15,7 +15,6 @@ return [
                 ],
                 'selected' => '',
                 'disabled' => false, // Valor fixo
-                'multiple' => false,
                 'fullwidth' => false, // Controlável
                 'error' => false,     // Valor fixo
             ],
@@ -32,7 +31,6 @@ return [
                 ],
                 'selected' => '',
                 'disabled' => true, // Valor fixo
-                'multiple' => false,
                 'fullwidth' => false, // Controlável
                 'error' => false,     // Valor fixo
             ],
@@ -50,7 +48,6 @@ return [
                 ],
                 'selected' => 'valor1',
                 'disabled' => false, // Valor fixo
-                'multiple' => false,
                 'fullwidth' => false, // Controlável
                 'error' => true,      // Valor fixo
                 'errorMessage' => 'Este campo é obrigatório.', // Mensagem de erro
@@ -69,7 +66,6 @@ return [
                 ],
                 'selected' => '',
                 'disabled' => false,
-                'multiple' => false,
                 'fullwidth' => false,
                 'error' => false,
                 'icon' => '/assets/images/event.svg', // Corrigido: Caminho absoluto

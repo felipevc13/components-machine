@@ -1,0 +1,14 @@
+// Import variables first
+@import 'variables';
+
+// Import component styles
+@import 'select';
+
+// Import Storybook base styles (if needed in the compiled output)
+@import 'storybook'; // Importando os estilos do storybook
+
+// Import general component base styles (from the old components.css)
+// We can integrate the content of components.css here or create a partial for it.
+#tab-panel-canvas {
+  font-family: $font-family-primary; // Use variable here as well
+}
