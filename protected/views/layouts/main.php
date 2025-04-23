@@ -265,31 +265,111 @@
                     <p><strong>Exemplo de Uso (PHP/Yii):</strong></p>
                     <pre><code class="language-php"><?php echo CHtml::encode($this->storyCodeSnippet); // Usa a propriedade do controller ?></code></pre>
 
-                    <!-- === INÍCIO DO GUIA PASSO A PASSO === -->
-                    <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Como Utilizar o Componente em seu Projeto Yii 1.13</h4>
+                    <!-- === INÍCIO DO GUIA PASSO A PASSO (APrimorado) === -->
+                    <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Como Utilizar o SelectWidget em seu Projeto Yii 1.13</h4>
 
                     <ol style="padding-left: 20px; line-height: 1.6;">
                         <li style="margin-bottom: 1rem;">
                             <strong>Pré-requisitos:</strong>
                             <ul style="margin-top: 0.5rem; padding-left: 20px;">
-                                <li>Certifique-se de que seu projeto está configurado corretamente com o framework Yii 1.13.</li>
-                                <li>Verifique se o arquivo da classe do componente (ex: <code>Select.php</code>) está localizado em um diretório acessível pela sua aplicação Yii, como <code>protected/components/</code>. O nome exato do arquivo e diretório pode variar.</li>
+                                <li>Seu projeto deve estar rodando Yii 1.13.</li>
+                                <li>O arquivo da classe do componente deve estar em <code>protected/components/SelectWidget.php</code>.</li>
+                                <li>Certifique-se de ter acesso ao CSS compilado da galeria e aos assets de imagens necessários.</li>
                             </ul>
                         </li>
 
                         <li style="margin-bottom: 1rem;">
-                            <strong>Uso na View (.php):</strong>
-                            <p style="margin-top: 0.5rem;">Para renderizar o componente em sua view (arquivo <code>.php</code>), utilize o método <code>widget()</code> disponível no contexto do controller ou da view. Você precisará fornecer o <em>alias</em> do caminho para a classe do componente e um array com as propriedades (<code>props</code>) desejadas.</p>
+                            <strong>Adicionando o Widget à sua View:</strong>
+                            <p style="margin-top: 0.5rem;">No arquivo da sua view (<code>.php</code>), utilize o método <code>widget()</code> para renderizar o SelectWidget. Exemplo:</p>
+                            <pre><code class="language-php">&lt;?php $this-&gt;widget('SelectWidget', [
+    'name' =&gt; 'myselect',
+    'options' =&gt; [
+        '' =&gt; 'Selecione uma opção',
+        '1' =&gt; 'Opção 1',
+        '2' =&gt; 'Opção 2',
+        '3' =&gt; 'Opção 3'
+    ],
+    'selected' =&gt; '',
+    'placeholder' =&gt; 'Escolha...',
+    'fullwidth' =&gt; false,
+    'error' =&gt; false,
+    'errorMessage' =&gt; '',
+    'icon' =&gt; null,
+    'disabled' =&gt; false,
+]); ?&gt;</code></pre>
+                            <p>Você pode passar apenas as props que desejar sobrescrever. As demais usam valores padrão.</p>
                         </li>
 
-                        <!-- Removed redundant hardcoded example block -->
-                    </ol>
-                    <!-- === FIM DO GUIA PASSO A PASSO === -->
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Props Disponíveis:</strong>
+                            <table style="margin-top: 0.5rem; border-collapse: collapse;">
+                                <thead>
+                                    <tr><th style="border: 1px solid #ccc; padding: 4px;">Prop</th><th style="border: 1px solid #ccc; padding: 4px;">Tipo</th><th style="border: 1px solid #ccc; padding: 4px;">Descrição</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">name</td><td style="border: 1px solid #ccc; padding: 4px;">string</td><td style="border: 1px solid #ccc; padding: 4px;">Nome do campo (atributo <code>name</code> do &lt;select&gt;)</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">options</td><td style="border: 1px solid #ccc; padding: 4px;">array</td><td style="border: 1px solid #ccc; padding: 4px;">Opções do select no formato [valor =&gt; label]</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">selected</td><td style="border: 1px solid #ccc; padding: 4px;">string/array</td><td style="border: 1px solid #ccc; padding: 4px;">Valor selecionado (ou array para múltipla seleção)</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">placeholder</td><td style="border: 1px solid #ccc; padding: 4px;">string</td><td style="border: 1px solid #ccc; padding: 4px;">Texto exibido como opção desabilitada no topo</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">fullwidth</td><td style="border: 1px solid #ccc; padding: 4px;">bool</td><td style="border: 1px solid #ccc; padding: 4px;">Se <code>true</code>, o select ocupa 100% da largura do container</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">error</td><td style="border: 1px solid #ccc; padding: 4px;">bool</td><td style="border: 1px solid #ccc; padding: 4px;">Se <code>true</code>, aplica estilo de erro</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">errorMessage</td><td style="border: 1px solid #ccc; padding: 4px;">string</td><td style="border: 1px solid #ccc; padding: 4px;">Mensagem de erro exibida abaixo do select</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">icon</td><td style="border: 1px solid #ccc; padding: 4px;">string</td><td style="border: 1px solid #ccc; padding: 4px;">Caminho do ícone SVG exibido à esquerda (opcional)</td></tr>
+                                    <tr><td style="border: 1px solid #ccc; padding: 4px;">disabled</td><td style="border: 1px solid #ccc; padding: 4px;">bool</td><td style="border: 1px solid #ccc; padding: 4px;">Se <code>true</code>, desabilita o select</td></tr>
+                                </tbody>
+                            </table>
+                        </li>
 
-                    <p style="margin-top: 20px;"><strong>Estilização e Customização (CSS):</strong></p>
-                    <p>Para que o componente seja exibido corretamente, certifique-se de que o arquivo CSS compilado esteja incluído na sua página. Neste catálogo, isso é feito incluindo <code>/assets/css/main.css</code> no <code>&lt;head&gt;</code>:</p>
-                    <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="/assets/css/main.css"&gt;</code></pre>
-                             <script src="path/to/prism.js"></script>
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Exemplo de Controller + View:</strong>
+                            <pre><code class="language-php">// Controller
+public function actionSelectDemo() {
+    $this-&gt;render('selectDemo', [
+        'props' =&gt; [
+            'name' =&gt; 'myselect',
+            'options' =&gt; ['1' =&gt; 'Um', '2' =&gt; 'Dois'],
+            'placeholder' =&gt; 'Escolha...',
+            // outros props...
+        ]
+    ]);
+}
+// View
+&lt;?php $this-&gt;widget('SelectWidget', $props); ?&gt;</code></pre>
+                        </li>
+
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Estilização (CSS):</strong>
+                            <p>Inclua o CSS compilado da galeria no <code>&lt;head&gt;</code> da sua aplicação para garantir o visual correto do componente:</p>
+                            <pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="/assets/css/main.css"&gt;</code></pre>
+                        </li>
+
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Assets Necessários:</strong>
+                            <p>Se o CSS do SelectWidget referenciar imagens (ex: ícones SVG), copie os arquivos correspondentes para o mesmo caminho em seu projeto. Exemplo:</p>
+                            <ul><li><code>/assets/images/event.svg</code></li></ul>
+                        </li>
+
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Compatibilidade com PHP 8.x:</strong>
+                            <p>Caso utilize PHP 8.1 ou superior, pode ser necessário suprimir avisos/notices do Yii 1.x. Adicione no início do seu <code>index.php</code>:</p>
+                            <pre><code class="language-php">
+error_reporting(E_ERROR | E_PARSE);
+ini_set('display_errors', 1);
+</code></pre>
+                        </li>
+
+                        <li style="margin-bottom: 1rem;">
+                            <strong>Dicas:</strong>
+                            <ul>
+                                <li>Sempre use o CSS da galeria para garantir consistência visual.</li>
+                                <li>Consulte a view de exemplo da galeria para ver diferentes combinações de props.</li>
+                                <li>Se precisar customizar, crie um novo widget herdando do SelectWidget.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <!-- === FIM DO GUIA PASSO A PASSO (APrimorado) === -->
+
+                             
                 <?php else: ?>
                     <p>Nenhum código de exemplo disponível para esta visualização.</p>
                 <?php endif; ?>
@@ -400,6 +480,8 @@
         }); // End of DOMContentLoaded listener
     </script>
     <!-- Prism.js scripts are already included in the <head> -->
+    <!-- PrismJS Highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
 </body>
 </html>
 
