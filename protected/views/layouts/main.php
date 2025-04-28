@@ -368,8 +368,6 @@ ini_set('display_errors', 1);
                         </li>
                     </ol>
                     <!-- === FIM DO GUIA PASSO A PASSO (APrimorado) === -->
-
-                             
                 <?php else: ?>
                     <p>Nenhum código de exemplo disponível para esta visualização.</p>
                 <?php endif; ?>
